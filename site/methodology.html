@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Methodology — TektAnalytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Tekt<span class="brand-accent">Analytics</span></div>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a class="nav-link" href="index.html">Dashboard</a></li>
+          <li><a class="nav-link" href="pricer.html">Basket Pricer</a></li>
+          <li><a class="nav-link is-active" href="methodology.html" aria-current="page">Methodology</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li id="feedback-slot" hidden></li>
+        </ul>
+        <p class="nav-group-label" id="coming-next-label">Coming next</p>
+        <ul class="nav nav-disabled" aria-labelledby="coming-next-label">
+          <li><span class="nav-link" aria-disabled="true">Supplier Benchmarks</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektSupply</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektMaterials</span></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <main id="main" tabindex="-1" class="prose">
+        <header class="page-header">
+          <h1>Methodology</h1>
+          <p class="meta-line">How every number on this site is collected, checked and calculated, and what it cannot tell you.</p>
+        </header>
+
+        <section class="card coverage" id="coverage" hidden aria-labelledby="coverage-heading">
+          <h2 id="coverage-heading" class="section-title">Data coverage right now</h2>
+          <dl class="coverage-grid">
+            <div><dt>Materials</dt><dd id="cov-materials">—</dd></div>
+            <div><dt>Regions</dt><dd id="cov-regions">—</dd></div>
+            <div><dt>Price records</dt><dd id="cov-records">—</dd></div>
+            <div><dt>Distinct sources</dt><dd id="cov-sources">—</dd></div>
+            <div><dt>Months covered</dt><dd id="cov-range">—</dd></div>
+          </dl>
+          <p id="cov-note" class="muted small">Counted live from the published data file.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">1. What is recorded</h2>
+          <p>Each price is one row in a public data file. Every row records:</p>
+          <ul>
+            <li><strong>Material and unit</strong>, from a fixed list of material names, so the same material is always named the same way.</li>
+            <li><strong>Spec</strong>: brand, grade or size. If the source does not say, the row says so.</li>
+            <li><strong>Region</strong> the price applies to, and the <strong>month</strong> it applies to.</li>
+            <li><strong>Delivery basis</strong>: ex-depot, delivered, or not stated.</li>
+            <li><strong>Source</strong>: who published or quoted the price, and a link to the page where possible.</li>
+            <li><strong>Date recorded</strong>: the day the price was checked and entered.</li>
+          </ul>
+          <p>Prices are recorded as the source gives them. They are not adjusted for VAT, transport,
+            quantity discounts or payment terms unless the row says so.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">2. Where prices come from</h2>
+          <ul>
+            <li><strong>Published reports</strong>: articles or reports that state a price, linked to the page.</li>
+            <li><strong>Supplier price lists</strong>: prices a supplier publishes, linked to the page.</li>
+            <li><strong>Supplier quotes</strong>: a named supplier's price given by phone, WhatsApp or in person.
+              Many suppliers do not publish prices online, so these rows can have no public link. They are marked
+              "no public link" everywhere they appear.</li>
+          </ul>
+          <p>When sources disagree, both prices are kept with their own sources. Nothing is averaged by hand.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">3. How data is checked</h2>
+          <ul>
+            <li><strong>A person checks every price.</strong> Each row is entered only after the source has been checked by hand.
+              No price on this site was made up, estimated or generated by software.</li>
+            <li><strong>An automatic validator checks the format</strong> of every row before the site is built: required fields,
+              valid months and dates, whole-naira prices, valid links, known material names, no duplicates. It checks format, not truth.</li>
+            <li><strong>Big jumps are flagged for a second look.</strong> A move of more than 20% between two recorded months raises a
+              warning. It never blocks the price, because Nigerian prices genuinely move fast.</li>
+            <li><strong>Every change is version-controlled.</strong> The data file's history records when each price was added or changed.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">4. Calculations</h2>
+          <ul>
+            <li><strong>Latest price</strong>: the most recent month with a price for that material and region.</li>
+            <li><strong>Several sources in one month</strong>: the median (middle value) is shown, with the number of sources used.
+              With one source, that single price is shown.</li>
+            <li><strong>Change</strong>: latest month compared with the previous month that has a price.
+              One month apart is labelled "month-on-month". Otherwise it says the real gap, for example "over 2 months",
+              because calling a two-month change month-on-month would overstate how fast prices move.
+              With one month of data it shows "n/a".</li>
+            <li><strong>Gaps on the chart</strong>: a dashed line means no price was recorded for the months in between.
+              Missing months are never filled in.</li>
+            <li><strong>Basket pricer line total</strong>: quantity × latest price, rounded to the nearest naira.</li>
+            <li><strong>Escalation estimate</strong> (an estimate, not a forecast). Only shown for a material with at least 3 months of prices:
+              <ol>
+                <li>For each pair of consecutive recorded months: <code>(P<sub>now</sub> ÷ P<sub>then</sub>)<sup>1 ÷ months apart</sup> − 1</code>, a monthly-equivalent rate.</li>
+                <li>Average those rates over up to the last 6 recorded months to get <code>g</code>.</li>
+                <li>Allowance for <code>m</code> months until purchase: <code>(1 + g)<sup>m</sup> − 1</code>.</li>
+              </ol>
+              It assumes recent average movement continues. It does not predict shocks, policy changes or exchange-rate moves.</li>
+            <li><strong>Basket index</strong>: not published yet. It needs a fixed, weighted basket of materials with regular prices
+              and a base month set to 100. It will be added once enough materials have regular data.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">5. Limits</h2>
+          <ul>
+            <li>Coverage is small and growing. A material or region with one or two prices tells you little about a trend.</li>
+            <li>A region label can cover a wide area. Prices inside a city can vary by location and supplier.</li>
+            <li>Chart lines group all specs of a material together. Check the spec of each source before comparing.</li>
+            <li>Prices may not match what you are quoted for your quantity, location, delivery terms or payment terms.</li>
+            <li>This site provides evidence for your own judgement. It is not professional cost advice.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">6. Found an error?</h2>
+          <p>If you see a price that looks wrong, please tell us the material, region and month, and what you
+            believe is correct, with a source if you have one.</p>
+          <p><a class="btn" data-feedback hidden target="_blank" rel="noopener noreferrer">Report an error or give feedback</a></p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>TektAnalytics is a Tektavon project. See <a href="about.html">About</a>.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>

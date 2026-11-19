@@ -1,0 +1,54 @@
+name: Deploy site
+
+# Publishes site/ to GitHub Pages on every push to main.
+# The deploy is refused if validation fails, the build fails, or the built
+# data is sample data (is_sample must be false).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate real data
+        run: python scripts/validate.py data/prices.csv
+
+      - name: Build site/prices.json (real mode, never sample)
+        run: python scripts/build_json.py
+
+      - name: Refuse to deploy sample data
+        run: python -c "import json,sys; d=json.load(open('site/prices.json')); print('is_sample =', d['is_sample']); sys.exit(1 if d['is_sample'] is not False else 0)"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

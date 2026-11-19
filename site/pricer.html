@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Basket Pricer — TektAnalytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <aside class="sidebar no-print">
+      <div class="brand">Tekt<span class="brand-accent">Analytics</span></div>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a class="nav-link" href="index.html">Dashboard</a></li>
+          <li><a class="nav-link is-active" href="pricer.html" aria-current="page">Basket Pricer</a></li>
+          <li><a class="nav-link" href="methodology.html">Methodology</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li id="feedback-slot" hidden></li>
+        </ul>
+        <p class="nav-group-label" id="coming-next-label">Coming next</p>
+        <ul class="nav nav-disabled" aria-labelledby="coming-next-label">
+          <li><span class="nav-link" aria-disabled="true">Supplier Benchmarks</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektSupply</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektMaterials</span></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <div id="sample-banner" class="sample-banner" role="alert" hidden>
+        ILLUSTRATIVE DEMO DATA - NOT REAL PRICES
+      </div>
+
+      <main id="main" tabindex="-1">
+        <header class="page-header">
+          <h1>Basket pricer</h1>
+          <p class="meta-line">Price a list of materials using the latest sourced price for each one.
+            Runs in your browser; nothing is saved or sent anywhere.</p>
+          <p id="print-meta" class="muted small print-only"></p>
+        </header>
+
+        <div id="status" class="status" hidden></div>
+
+        <div id="pricer" hidden>
+          <section class="card" aria-labelledby="basket-heading">
+            <div class="card-head">
+              <h2 id="basket-heading" class="section-title">Your basket</h2>
+              <div class="selectors">
+                <label>Region
+                  <select id="region-select"></select>
+                </label>
+                <label>Months until purchase
+                  <input id="months-input" type="number" min="0" max="36" step="1" value="0" inputmode="numeric">
+                </label>
+              </div>
+            </div>
+
+            <div class="table-scroll" tabindex="0" role="region" aria-labelledby="basket-heading">
+              <table class="price-table basket-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Material</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col" class="num">Unit price</th>
+                    <th scope="col" class="num">Line total</th>
+                    <th scope="col">Escalation estimate</th>
+                    <th scope="col">Source</th>
+                    <th scope="col" class="no-print"><span class="visually-hidden">Remove</span></th>
+                  </tr>
+                </thead>
+                <tbody id="basket-body"></tbody>
+              </table>
+            </div>
+
+            <div class="basket-actions no-print">
+              <button id="add-line" type="button" class="btn">+ Add material</button>
+              <span id="add-note" class="muted small" hidden></span>
+            </div>
+
+            <dl class="totals" aria-live="polite">
+              <div><dt>Subtotal (latest prices)</dt><dd id="subtotal">—</dd></div>
+              <div id="escalation-row" hidden><dt id="escalation-label">Escalation allowance</dt><dd id="escalation-total">—</dd></div>
+              <div class="totals-grand"><dt>Total</dt><dd id="grand-total">—</dd></div>
+            </dl>
+            <p id="totals-note" class="muted small"></p>
+
+            <div class="basket-actions no-print">
+              <button id="print-btn" type="button" class="btn btn-secondary">Print</button>
+              <button id="csv-btn" type="button" class="btn btn-secondary">Download CSV</button>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="how-heading">
+            <h2 id="how-heading" class="section-title">How this is calculated</h2>
+            <ul class="how-list">
+              <li><strong>Unit price:</strong> the most recent month with a price for that material in the chosen
+                region. If several sources report that month, the median is used and the line says so.</li>
+              <li><strong>Line total:</strong> quantity × unit price, rounded to the nearest naira.</li>
+              <li><strong>Escalation estimate</strong> (estimate, not a forecast), shown only for materials with
+                at least 3 months of prices:
+                <ol>
+                  <li>For each pair of consecutive recorded months, a monthly-equivalent rate
+                    <code>(P<sub>now</sub> ÷ P<sub>then</sub>)<sup>1 ÷ months apart</sup> − 1</code>.</li>
+                  <li>The average of those rates over up to the last 6 recorded months gives <code>g</code>.</li>
+                  <li>Allowance for <code>m</code> months until purchase: <code>(1 + g)<sup>m</sup> − 1</code>.</li>
+                </ol>
+              </li>
+              <li>Prices are as published or quoted by each source. Check the spec, delivery basis and
+                source on each line before using a total. This is evidence for your own judgement, not
+                professional cost advice.</li>
+            </ul>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>Every price links to its source. See the <a href="methodology.html">Methodology</a> page.</p>
+        <p id="generated-line" class="muted small"></p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="assets/pricer.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

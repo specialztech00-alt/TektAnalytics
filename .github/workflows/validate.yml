@@ -1,0 +1,33 @@
+name: Validate data
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Each step exits non-zero on any problem, which fails the workflow.
+      - name: Validate real data (data/prices.csv)
+        run: python scripts/validate.py data/prices.csv
+
+      - name: Validate sample data (data/prices.sample.csv)
+        run: python scripts/validate.py data/prices.sample.csv
+
+      # Real mode only. This fails if prices.csv is empty, and never falls back to sample data.
+      - name: Build site/prices.json (real mode)
+        run: python scripts/build_json.py
+
+      # IMPORTANT for future deploy workflows: a production deploy MUST fail if
+      # site/prices.json has "is_sample": true. Sample data must never be
+      # published as real prices. Add a check like this before any deploy step:
+      #   python -c "import json,sys; sys.exit(1 if json.load(open('site/prices.json'))['is_sample'] else 0)"
+      - name: Confirm build output is real data (is_sample=false)
+        run: python -c "import json,sys; d=json.load(open('site/prices.json')); print('is_sample =', d['is_sample']); sys.exit(1 if d['is_sample'] else 0)"

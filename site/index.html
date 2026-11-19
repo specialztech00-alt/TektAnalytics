@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Dashboard — TektAnalytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Tekt<span class="brand-accent">Analytics</span></div>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a class="nav-link is-active" href="index.html" aria-current="page">Dashboard</a></li>
+          <li><a class="nav-link" href="pricer.html">Basket Pricer</a></li>
+          <li><a class="nav-link" href="methodology.html">Methodology</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li id="feedback-slot" hidden></li>
+        </ul>
+        <p class="nav-group-label" id="coming-next-label">Coming next</p>
+        <ul class="nav nav-disabled" aria-labelledby="coming-next-label">
+          <li><span class="nav-link" aria-disabled="true">Supplier Benchmarks</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektSupply</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektMaterials</span></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <div id="sample-banner" class="sample-banner" role="alert" hidden>
+        ILLUSTRATIVE DEMO DATA - NOT REAL PRICES
+      </div>
+
+      <main id="main" tabindex="-1">
+        <header class="page-header">
+          <h1>Construction material prices</h1>
+          <p id="meta-line" class="meta-line">Loading data…</p>
+        </header>
+
+        <div id="status" class="status" hidden></div>
+
+        <div id="dashboard" hidden>
+          <section aria-labelledby="kpi-heading">
+            <h2 id="kpi-heading" class="section-title">Latest prices</h2>
+            <div id="kpi-grid" class="kpi-grid"></div>
+            <p id="kpi-note" class="muted small" hidden></p>
+          </section>
+
+          <section class="card" aria-labelledby="chart-heading">
+            <div class="card-head">
+              <h2 id="chart-heading" class="section-title">Price over time</h2>
+              <div class="selectors">
+                <label>Material
+                  <select id="item-select"></select>
+                </label>
+                <label>Region
+                  <select id="region-select"></select>
+                </label>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="price-chart" role="img"></canvas>
+            </div>
+            <p id="chart-note" class="chart-note" hidden></p>
+            <p id="chart-legend" class="muted small" hidden></p>
+          </section>
+
+          <section class="card" aria-labelledby="table-heading">
+            <h2 id="table-heading" class="section-title">Latest price by material and region</h2>
+            <div class="table-scroll" tabindex="0" role="region" aria-labelledby="table-heading">
+              <table class="price-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Region</th>
+                    <th scope="col" class="num">Latest price</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Source</th>
+                  </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>Prices are drawn from the sources linked in the table. See the
+          <a href="methodology.html">Methodology</a> page.</p>
+        <p id="generated-line" class="muted small"></p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- async: prices and table render even if the chart library is slow or blocked -->
+  <script id="chartjs-script" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+          integrity="sha384-bs/nf9FbdNouRbMiFcrcZfLXYPKiPaGVGplVbv7dLGECccEXDW+S3zjqSKR5ZEaD"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/dashboard.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

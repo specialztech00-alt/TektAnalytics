@@ -1,0 +1,11 @@
+item,spec,unit,region,price_ngn,period,delivery_basis,quote_type,source_name,source_url,collected_on,notes
+Demo Material A,Demo spec,bag,Demo City 1,1000,2026-01,ex_depot,published_report,Demo Source - not real,https://demo.invalid/,2026-01-20,ILLUSTRATIVE - not a real price
+Demo Material A,Demo spec,bag,Demo City 1,1100,2026-02,ex_depot,published_report,Demo Source - not real,https://demo.invalid/,2026-02-20,ILLUSTRATIVE - not a real price
+Demo Material A,Demo spec,bag,Demo City 2,1050,2026-01,delivered,supplier_list,Demo Source - not real,https://demo.invalid/,2026-01-20,ILLUSTRATIVE - not a real price
+Demo Material A,Demo spec,bag,Demo City 2,1150,2026-02,delivered,supplier_list,Demo Source - not real,https://demo.invalid/,2026-02-20,ILLUSTRATIVE - not a real price
+Demo Material B,Demo spec,tonne,Demo City 1,5000,2026-01,ex_depot,published_report,Demo Source - not real,https://demo.invalid/,2026-01-20,ILLUSTRATIVE - not a real price
+Demo Material B,Demo spec,tonne,Demo City 1,5200,2026-02,ex_depot,published_report,Demo Source - not real,https://demo.invalid/,2026-02-20,ILLUSTRATIVE - not a real price
+Demo Material B,Demo spec,tonne,Demo City 2,4900,2026-01,not_stated,published_report,Demo Source - not real,https://demo.invalid/,2026-01-20,ILLUSTRATIVE - not a real price
+Demo Material C,Demo spec,piece,Demo City 1,200,2026-01,delivered,market_quote,Demo Supplier - not real,,2026-01-20,ILLUSTRATIVE - phone quote - not a real price
+Demo Material C,Demo spec,piece,Demo City 1,220,2026-02,delivered,market_quote,Demo Supplier - not real,,2026-02-20,ILLUSTRATIVE - phone quote - not a real price
+Demo Material C,Demo spec,piece,Demo City 2,210,2026-02,ex_depot,published_report,Demo Source - not real,https://demo.invalid/,2026-02-20,ILLUSTRATIVE - not a real price

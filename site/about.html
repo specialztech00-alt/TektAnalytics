@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>About — TektAnalytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Tekt<span class="brand-accent">Analytics</span></div>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a class="nav-link" href="index.html">Dashboard</a></li>
+          <li><a class="nav-link" href="pricer.html">Basket Pricer</a></li>
+          <li><a class="nav-link" href="methodology.html">Methodology</a></li>
+          <li><a class="nav-link is-active" href="about.html" aria-current="page">About</a></li>
+          <li id="feedback-slot" hidden></li>
+        </ul>
+        <p class="nav-group-label" id="coming-next-label">Coming next</p>
+        <ul class="nav nav-disabled" aria-labelledby="coming-next-label">
+          <li><span class="nav-link" aria-disabled="true">Supplier Benchmarks</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektSupply</span></li>
+          <li><span class="nav-link" aria-disabled="true">TektMaterials</span></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <main id="main" tabindex="-1" class="prose">
+        <header class="page-header">
+          <h1>About TektAnalytics</h1>
+          <p class="meta-line">A sourced, dated record of Nigerian construction material prices, with tools to use it.</p>
+        </header>
+
+        <section class="card">
+          <h2 class="section-title">The problem</h2>
+          <p>Construction material prices in Nigeria are scattered across phone calls, WhatsApp groups and one-off reports.
+            The same item can be priced very differently depending on spec, quantity, location and delivery terms.
+            Contractors, quantity surveyors and clients often have no structured, sourced record to estimate,
+            procure or negotiate against.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">What this is</h2>
+          <p>TektAnalytics records material prices with their source, spec, region and date, publishes how every
+            number is calculated, and builds simple decision tools on top. It is an early prototype:</p>
+          <ul>
+            <li><strong>Live now:</strong> the price <a href="index.html">dashboard</a>, the
+              <a href="pricer.html">basket pricer</a> and the <a href="methodology.html">methodology</a>.</li>
+            <li><strong>Not built yet:</strong> supplier benchmarks, accounts and saved projects, price alerts, forecasts.
+              These are shown as "Coming next" and do not exist yet.</li>
+          </ul>
+          <p>Coverage is small and growing. Every price shown has been checked by hand against its source.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Who is building it</h2>
+          <p>TektAnalytics is the first module of <strong>Tektavon</strong>, a construction technology venture being built
+            in Lagos by Peculiar Akintoye, a student in the Department of Building, University of Lagos.
+            Tektavon's aim is a set of tools for the construction industry, with TektAnalytics as the shared price data
+            underneath them.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">Help shape it</h2>
+          <p>If you work in construction (contractor, quantity surveyor, builder, engineer, supplier or client), your feedback
+            decides what gets built next: which materials and cities matter, and which tools would save you time.</p>
+          <p data-feedback-missing class="muted">The feedback form link will be added here shortly.</p>
+          <p><a class="btn" data-feedback hidden target="_blank" rel="noopener noreferrer">Give feedback (2 minutes)</a></p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>This site provides evidence for your own judgement, not professional cost advice.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>
