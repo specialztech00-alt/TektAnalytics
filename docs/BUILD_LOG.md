@@ -251,3 +251,33 @@ December 2025 to February 2026 for the real data.
 **To do (owner):** paste the Google Form link into `site/assets/site.js`. A
 pilot-request email link was left out: suggest adding a "Would you like to pilot
 it?" question to the form instead.
+
+---
+
+## 2026-11-19 — Phase 4: deployment
+
+**What was done**
+
+- **Deploy workflow (`.github/workflows/deploy.yml`).** On every push to `main`,
+  GitHub validates `data/prices.csv`, builds `site/prices.json` from the real data,
+  refuses to continue if the result is sample data, then publishes the `site/`
+  folder to GitHub Pages. If any check fails, nothing is published and the live
+  site stays as it was.
+- **Clean history.** Before the first push, the old local history (which once
+  contained fabricated price rows) was backed up to
+  `tektanalytics-history-backup.bundle` in the owner's user folder, then replaced
+  by one fresh commit on a branch named `main`. The fabricated rows never reached
+  GitHub.
+- **GitHub repo:** https://github.com/specialztech00-alt/TektAnalytics (public, so
+  GitHub Pages is free and anyone can check the data and method). GitHub's starter
+  commit (MIT licence + one-line README) was merged in, keeping the full project
+  README.
+- **README** now explains how to deploy, update prices and set the feedback link.
+
+**How to update the live site:** add rows, run `python scripts/validate.py`, then
+commit and `git push`. The site updates about a minute later.
+
+**What happened on the first push:** the repo was private and Pages was not
+switched on, so the first deploy stopped at the "configure Pages" step (all data
+checks had passed). After the owner made the repo public and set Pages to
+"GitHub Actions", the next push deployed.
